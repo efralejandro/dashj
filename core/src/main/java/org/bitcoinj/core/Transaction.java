@@ -1182,7 +1182,7 @@ public class Transaction extends ChildMessage {
         try {
             // Create a copy of this transaction to operate upon because we need make changes to the inputs and outputs.
             // It would not be thread-safe to change the attributes of the transaction object itself.
-             System.out.println("serializin");
+            System.out.println("serializin");
             Transaction tx = this.params.getDefaultSerializ er().makeTransaction(this.bitcoinSerialize());
             System.out.println("made it past");
             // Clear input scripts in preparation for signing. If we're signing a fresh
