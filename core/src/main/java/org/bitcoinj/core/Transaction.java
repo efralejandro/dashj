@@ -1163,7 +1163,9 @@ public class Transaction extends ChildMessage {
      */
     public Sha256Hash hashForSignature(int inputIndex, Script redeemScript,
                                                     SigHash type, boolean anyoneCanPay) {
+        System.out.println(inputIndex, redeemScript, type, anyoneCanPay);
         int sigHash = TransactionSignature.calcSigHashValue(type, anyoneCanPay);
+        System.out.println(sigHash);
         return hashForSignature(inputIndex, redeemScript.getProgram(), (byte) sigHash);
     }
 
@@ -1180,8 +1182,9 @@ public class Transaction extends ChildMessage {
         try {
             // Create a copy of this transaction to operate upon because we need make changes to the inputs and outputs.
             // It would not be thread-safe to change the attributes of the transaction object itself.
-            Transaction tx = this.params.getDefaultSerializer().makeTransaction(this.bitcoinSerialize());
-
+             System.out.println("serializin");
+            Transaction tx = this.params.getDefaultSerializ er().makeTransaction(this.bitcoinSerialize());
+            System.out.println("made it past");
             // Clear input scripts in preparation for signing. If we're signing a fresh
             // transaction that step isn't very helpful, but it doesn't add much cost relative to the actual
             // EC math so we'll do it anyway.
@@ -1259,6 +1262,7 @@ public class Transaction extends ChildMessage {
 
     @Override
     protected void bitcoinSerializeToStream(OutputStream stream) throws IOException {
+         System.out.println(stream);
         uint32ToByteStreamLE(version, stream);
         stream.write(new VarInt(inputs.size()).encode());
         for (TransactionInput in : inputs)
