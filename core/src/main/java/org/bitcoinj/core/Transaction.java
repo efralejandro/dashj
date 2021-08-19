@@ -1143,7 +1143,12 @@ public class Transaction extends ChildMessage {
      */
     public Sha256Hash hashForSignature(int inputIndex, byte[] redeemScript,
                                                     SigHash type, boolean anyoneCanPay) {
+        System.out.println(inputIndex);
+        System.out.println(redeemScript);
+        System.out.println(type); 
+        System.out.println(anyoneCanPay);
         byte sigHashType = (byte) TransactionSignature.calcSigHashValue(type, anyoneCanPay);
+        System.out.println(sigHashType);
         return hashForSignature(inputIndex, redeemScript, sigHashType);
     }
 
@@ -1163,12 +1168,7 @@ public class Transaction extends ChildMessage {
      */
     public Sha256Hash hashForSignature(int inputIndex, Script redeemScript,
                                                     SigHash type, boolean anyoneCanPay) {
-        System.out.println(inputIndex);
-        System.out.println(redeemScript);
-        System.out.println(type); 
-        System.out.println(anyoneCanPay);
         int sigHash = TransactionSignature.calcSigHashValue(type, anyoneCanPay);
-        System.out.println(sigHash);
         return hashForSignature(inputIndex, redeemScript.getProgram(), (byte) sigHash);
     }
 
